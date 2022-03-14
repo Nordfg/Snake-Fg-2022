@@ -33,8 +33,11 @@ public class _GC : MonoBehaviour
     public GameObject panelGameOver;
     public GameObject panelTitle;
 
+    [SerializeField] private GameObject pausePanel;
+
     void Start()
     {
+        pausePanel.SetActive(false);
         PowerUpFood();
         StartCoroutine(MoveSnake());
         SetFood();
@@ -65,6 +68,7 @@ public class _GC : MonoBehaviour
         {
             moveDirection = Direction.RIGHT;
         }
+
     }
 
     IEnumerator MoveSnake()
@@ -199,5 +203,21 @@ public class _GC : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("Quit");
+
+    }
+
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        pausePanel.SetActive(true);
+        //Disable scripts that still work while timescale is set to 0
+    }
+
+    public void ContinueGame()
+    {
+        Time.timeScale = 1;
+        pausePanel.SetActive(false);
+        //enable the scripts again
     }
 }
